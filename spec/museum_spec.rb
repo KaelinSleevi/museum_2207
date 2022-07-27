@@ -112,14 +112,14 @@ RSpec.describe Museum do
     patron_1.add_interests("Dead Sea Scrolls")
     patron_1.add_interests("Gems and Minerals")
     patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interest("Dead Sea Scrolls")
+    patron_3.add_interests("Dead Sea Scrolls")
 
     dmns.admit(patron_1)
     dmns.admit(patron_2)
     dmns.admit(patron_3)
 
     expect(dmns.patrons).to eq([patron_1, patron_2, patron_3])
-    expect(dmns.patrons_by_exhibit_interest).to eq({"Gems and Minerals" => [patron_1], "Dead Sea Scrolls" => [patron_1, patron_2], "IMAX" => []})
+    expect(dmns.patrons_by_exhibit_interest).to eq({"Gems and Minerals" => [patron_1], "Dead Sea Scrolls" => [patron_1, patron_2, patron_3], "IMAX" => []})
   end
 
   it 'dead sea scrolls has lottery ticket contestants' do
@@ -142,7 +142,7 @@ RSpec.describe Museum do
     patron_1.add_interests("Dead Sea Scrolls")
     patron_1.add_interests("Gems and Minerals")
     patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interest("Dead Sea Scrolls")
+    patron_3.add_interests("Dead Sea Scrolls")
 
     dmns.admit(patron_1)
     dmns.admit(patron_2)
@@ -171,7 +171,7 @@ RSpec.describe Museum do
     patron_1.add_interests("Dead Sea Scrolls")
     patron_1.add_interests("Gems and Minerals")
     patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interest("Dead Sea Scrolls")
+    patron_3.add_interests("Dead Sea Scrolls")
 
     dmns.admit(patron_1)
     dmns.admit(patron_2)
@@ -200,7 +200,7 @@ RSpec.describe Museum do
     patron_1.add_interests("Dead Sea Scrolls")
     patron_1.add_interests("Gems and Minerals")
     patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interest("Dead Sea Scrolls")
+    patron_3.add_interests("Dead Sea Scrolls")
 
     expect(dmns.draw_lottery_winner(gems_and_minerals)).to eq([])
   end
@@ -225,7 +225,7 @@ RSpec.describe Museum do
     patron_1.add_interests("Dead Sea Scrolls")
     patron_1.add_interests("Gems and Minerals")
     patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interest("Dead Sea Scrolls")
+    patron_3.add_interests("Dead Sea Scrolls")
 
     expect(dmns.announce_lottery_winner(imax)).to eq(patron_1)
   end
@@ -250,7 +250,7 @@ RSpec.describe Museum do
     patron_1.add_interests("Dead Sea Scrolls")
     patron_1.add_interests("Gems and Minerals")
     patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interest("Dead Sea Scrolls")
+    patron_3.add_interests("Dead Sea Scrolls")
 
     expect(dmns.announce_lottery_winner(gems_and_minerals)).to eq([])
   end

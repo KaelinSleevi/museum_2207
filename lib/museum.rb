@@ -19,13 +19,19 @@ class Museum
   end
 
   def recommend_exhibits(patron)
-    @recommend_patrons = []
-
-    @exhibits.each do |exhibit|
-      exhibit.patrons.each do |patron|
-        recommend_patrons << patron.interests if !recommend_patrons.include?(interest.name)
-      end
+    if patron.interests.include?(exhibits)
+      @patrons << exhibits
     end
-    recommend_patrons
+  end
+
+  def patrons_by_exhibit_interest
+    patrons_by_interest = Hash.new({})
+
+    i = 0
+
+    @patrons.each do |patron|
+      patrons_by_interest[patron] = @exhibits[i]
+    end
+    patrons_by_interest
   end
 end
