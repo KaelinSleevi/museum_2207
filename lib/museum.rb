@@ -33,7 +33,7 @@ class Museum
 
     @exhibits.each do |exhibit|
       @patrons.each do |patron|
-          patrons_by_interest[exhibit] = patron if patron.interests.include?(exhibit.name)
+        patrons_by_interest[exhibit] = @patrons.select{|patron| patron.interests.any?(exhibit.name)}
       end
     end
     patrons_by_interest
