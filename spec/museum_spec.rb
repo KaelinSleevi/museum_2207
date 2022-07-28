@@ -126,7 +126,7 @@ RSpec.describe Museum do
     gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
     dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
     imax = Exhibit.new({name: "IMAX",cost: 15})
-    patron_1 = Patron.new("Bob", 20)
+    patron_1 = Patron.new("Bob", 0)
     patron_2 = Patron.new("Sally", 20)
     patron_3 = Patron.new("Johnny", 5)
 
@@ -155,7 +155,7 @@ RSpec.describe Museum do
     gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
     dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
     imax = Exhibit.new({name: "IMAX",cost: 15})
-    patron_1 = Patron.new("Bob", 20)
+    patron_1 = Patron.new("Bob", 0)
     patron_2 = Patron.new("Sally", 20)
     patron_3 = Patron.new("Johnny", 5)
 
@@ -176,40 +176,16 @@ RSpec.describe Museum do
     dmns.admit(patron_2)
     dmns.admit(patron_3)
 
-    expect(dmns.draw_lottery_winner(dead_sea_scrolls)).to eq()
-  end
-
-  it 'gems has no lottery winner by default' do
-    dmns = Museum.new("Denver Museum of Nature and Science")
-    gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
-    dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
-    imax = Exhibit.new({name: "IMAX",cost: 15})
-    patron_1 = Patron.new("Bob", 20)
-    patron_2 = Patron.new("Sally", 20)
-    patron_3 = Patron.new("Johnny", 5)
-
-    dmns.add_exhibit(gems_and_minerals)
-    dmns.add_exhibit(dead_sea_scrolls)
-    dmns.add_exhibit(imax)
-
-    dmns.add_patrons(patron_1)
-    dmns.add_patrons(patron_2)
-    dmns.add_patrons(patron_3)
-
-    patron_1.add_interests("Dead Sea Scrolls")
-    patron_1.add_interests("Gems and Minerals")
-    patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interests("Dead Sea Scrolls")
-
+    expect(dmns.draw_lottery_winner(dead_sea_scrolls)).to eq([patron_1] || [patron_3])
     expect(dmns.draw_lottery_winner(gems_and_minerals)).to eq([])
   end
 
-  it 'imax can annouce lottery ticket winners' do
+  it 'can annouce lottery ticket winners' do
     dmns = Museum.new("Denver Museum of Nature and Science")
     gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
     dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
     imax = Exhibit.new({name: "IMAX",cost: 15})
-    patron_1 = Patron.new("Bob", 20)
+    patron_1 = Patron.new("Bob", 0)
     patron_2 = Patron.new("Sally", 20)
     patron_3 = Patron.new("Johnny", 5)
 
@@ -226,31 +202,7 @@ RSpec.describe Museum do
     patron_2.add_interests("Dead Sea Scrolls")
     patron_3.add_interests("Dead Sea Scrolls")
 
-    expect(dmns.announce_lottery_winner(imax)).to eq(patron_1)
-  end
-
-  it 'gems can announce lottery winner' do
-    dmns = Museum.new("Denver Museum of Nature and Science")
-    gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
-    dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
-    imax = Exhibit.new({name: "IMAX",cost: 15})
-    patron_1 = Patron.new("Bob", 20)
-    patron_2 = Patron.new("Sally", 20)
-    patron_3 = Patron.new("Johnny", 5)
-
-    dmns.add_exhibit(gems_and_minerals)
-    dmns.add_exhibit(dead_sea_scrolls)
-    dmns.add_exhibit(imax)
-
-    dmns.add_patrons(patron_1)
-    dmns.add_patrons(patron_2)
-    dmns.add_patrons(patron_3)
-
-    patron_1.add_interests("Dead Sea Scrolls")
-    patron_1.add_interests("Gems and Minerals")
-    patron_2.add_interests("Dead Sea Scrolls")
-    patron_3.add_interests("Dead Sea Scrolls")
-
+    expect(dmns.announce_lottery_winner(imax)).to eq([patron_1])
     expect(dmns.announce_lottery_winner(gems_and_minerals)).to eq([])
   end
 end
