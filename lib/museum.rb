@@ -7,15 +7,10 @@ class Museum
     @name = name
     @exhibits = []
     @patrons = []
-
   end
 
   def add_exhibit(exhibit)
     @exhibits << exhibit
-  end
-
-  def add_patrons(patron)
-    @patrons << patron
   end
 
   def recommend_exhibits(patron)
@@ -32,24 +27,27 @@ class Museum
     patrons_by_interest = Hash.new(0)
 
     @exhibits.each do |exhibit|
-      patrons_by_interest[exhibit] = @patrons.select{|patron| patron.interests.include?(exhibit.name)}.uniq
+      patrons_by_interest[exhibit] = @patrons.select do |patron|
+        patron.interests.include?(exhibit.name)
+      end
     end
     patrons_by_interest
   end
 
   def ticket_lottery_contestants(exhibit)
-    patrons_by_exhibit_interest[exhibit].find_all do |patron|
+    patrons_by_exhibit_interest[exhibit].select do |patron|
       patron.spending_money < exhibit.cost
     end
   end
 
   def draw_lottery_winner(exhibit)
-    ticket_lottery_contestants(exhibit).sample(1)
+    winner = ticket_lottery_contestants(exhibit).sample&.name
   end
 
   def announce_lottery_winner(exhibit)
-    if draw_lottery_winner == true
-      puts "#{draw_lottery_winner(exhibit)} has won the #{exhibit} exhibit lottery!"
-    end
+    winner = draw_lottery_winner(exhibit)
+    return 'No lottery winners!' unless winner
+
+    "#{winner} has won the #{exhibit.name} exhibit lottery!"
   end
 end
